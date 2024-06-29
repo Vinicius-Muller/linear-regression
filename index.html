@@ -37,18 +37,34 @@
         placeholder="Numero"
       />
 
-      <button id="add-trainning-items">Adicionar</button>
+      <button id="add-trainning-items" onclick="addTrainningItems(event)">
+        Adicionar
+      </button>
 
       <div class="predict-btn-section">
-        <button id="start-prediction-mode" class="disabled">
+        <button
+          id="start-prediction-mode"
+          class="disabled"
+          onclick="startPredictionMode(event)"
+        >
           Começar predição
         </button>
       </div>
 
       <div class="predict-btn-section">
-        <button id="add-prediction-items" class="hide">Adicionar</button>
+        <button
+          id="add-prediction-items"
+          class="hide"
+          onclick="addPredictionItem(event)"
+        >
+          Gerar predição
+        </button>
 
-        <button id="reset-btn" class="reset-button">
+        <button
+          id="reset-btn"
+          class="reset-button hide"
+          onclick="resetAplication(event)"
+        >
           Reiniciar treinamentos
         </button>
       </div>

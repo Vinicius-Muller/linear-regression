@@ -13,15 +13,16 @@ const numberToCalculateRegression =
 
 const results = document.querySelector("#results");
 
-const trainningAxyX = [];
-const trainningAxyY = [];
+let trainningAxyX = [];
+let trainningAxyY = [];
 
-const predictionAxyX = [];
-const predictionAxyY = [];
+let predictionAxyX = [];
+let predictionAxyY = [];
 
 const addTrainningItemsBtn = document.querySelector("#add-trainning-items");
 const startPredictionModeBtn = document.querySelector("#start-prediction-mode");
 const addPredictionItemsBtn = document.querySelector("#add-prediction-items");
+const resetTrainningItemsBtn = document.querySelector("#reset-btn");
 
 let axyX;
 let axyY;
@@ -87,8 +88,8 @@ function predict(entries) {
   return regressions;
 }
 
-addTrainningItemsBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+function addTrainningItems(event) {
+  event.preventDefault();
   trainningAxyX.push(parseFloat(inputX.value.replace(/\D/g, "")));
   trainningAxyY.push(parseFloat(inputY.value.replace(/\D/g, "")));
 
@@ -112,35 +113,35 @@ addTrainningItemsBtn.addEventListener("click", (e) => {
   }
 
   if (trainningAxyX.length > 1) {
-    startPredictionModeBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      predictionsSection.style.display = "block";
-      addTrainningItemsBtn.style.display = "none";
-      startPredictionModeBtn.style.display = "none";
-
-      trainning({
-        x: trainningAxyX,
-        y: trainningAxyY,
-      });
-
-      inputX.classList.add("hide");
-      inputY.classList.add("hide");
-      numberToCalculateRegression.classList.remove("hide");
-      addPredictionItemsBtn.classList.remove("hide");
-
-      applicationTitle[0].textContent = "Predição de Números";
-    });
-
-    if (trainningAxyX.length > 1)
-      startPredictionModeBtn.classList.remove("disabled");
+    startPredictionModeBtn.classList.remove("disabled");
   }
 
   inputX.value = "";
   inputY.value = "";
-});
+}
 
-addPredictionItemsBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+function startPredictionMode(event) {
+  event.preventDefault();
+  predictionsSection.style.display = "flex";
+  addTrainningItemsBtn.style.display = "none";
+  startPredictionModeBtn.style.display = "none";
+
+  trainning({
+    x: trainningAxyX,
+    y: trainningAxyY,
+  });
+
+  inputX.classList.add("hide");
+  inputY.classList.add("hide");
+  numberToCalculateRegression.classList.remove("hide");
+  addPredictionItemsBtn.classList.remove("hide");
+  resetTrainningItemsBtn.classList.remove("hide");
+
+  applicationTitle[0].textContent = "Predição de Números";
+}
+
+function addPredictionItem(event) {
+  event.preventDefault();
 
   const regressionsPredictionResults = predict([
     parseFloat(numberToCalculateRegression.value),
@@ -149,10 +150,52 @@ addPredictionItemsBtn.addEventListener("click", (e) => {
   numberToCalculateRegression.value = "";
 
   const li = document.createElement("li");
+
   if (regressionsPredictionResults[0])
     li.textContent = regressionsPredictionResults[0];
   else
     li.textContent =
       "O algoritmo não achou uma predição deste numero. Tenta novamente com mais epocas de treinamento";
+
   results.appendChild(li);
-});
+}
+
+function resetAplication(event) {
+  event.preventDefault();
+
+  inputX.classList.remove("hide");
+  inputY.classList.remove("hide");
+
+  numberToCalculateRegression.src = "";
+  numberToCalculateRegression.classList.add("hide");
+
+  addPredictionItemsBtn.classList.add("hide");
+
+  resetTrainningItemsBtn.classList.add("hide");
+
+  addTrainningItemsBtn.style.display = "initial";
+  startPredictionModeBtn.style.display = "initial";
+
+  predictionsSection.style.display = "none";
+
+  trainningAxyX = [];
+  trainningAxyY = [];
+
+  const xList = document.querySelectorAll("#list-x li");
+  const yList = document.querySelectorAll("#list-y li");
+
+  for (let i = 0; i < xList.length; i++) {
+    xList[i].remove();
+  }
+
+  for (let i = 0; i < yList.length; i++) {
+    yList[i].remove();
+  }
+
+  for (let i = 0; i < results.childNodes.length; i++) {
+    results.childNodes[i].remove();
+  }
+
+  predictionAxyX = [];
+  predictionAxyY = [];
+}

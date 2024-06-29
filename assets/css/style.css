@@ -14,13 +14,24 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+h1 {
+  text-align: center;
+}
+
 small {
   margin-bottom: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 section {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
 }
 
 section ol {
@@ -72,6 +83,7 @@ button:hover {
 
 .predict-btn-section button {
   background-color: #1eb300;
+  margin: 0 20px;
 }
 
 .predict-btn-section button.reset-button {
