@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-bt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Regressão linear</title>
+  </head>
+  <body>
+    <h1>Época de treinamento</h1>
+    <small>Adicione ao menos 3 resultados para X e Y para maior precisão</small>
+    <section>
+      <h4>Eixo X</h4>
+      <ol id="list-x"></ol>
+    </section>
+
+    <section>
+      <h4>Eixo Y</h4>
+      <ol id="list-y"></ol>
+    </section>
+
+    <section class="prediction-section">
+      <h4>Predição</h4>
+
+      <ol id="results"></ol>
+    </section>
+
+    <form>
+      <input id="value-x" type="text" placeholder="X" />
+
+      <input id="value-y" type="text" placeholder="Y" />
+
+      <input
+        class="hide"
+        id="regression-result"
+        type="text"
+        placeholder="Numero"
+      />
+
+      <button id="add-trainning-items">Adicionar</button>
+
+      <div class="predict-btn-section">
+        <button id="start-prediction-mode" class="disabled">
+          Começar predição
+        </button>
+      </div>
+
+      <div class="predict-btn-section">
+        <button id="add-prediction-items" class="hide">Adicionar</button>
+
+        <button id="reset-btn" class="reset-button">
+          Reiniciar treinamentos
+        </button>
+      </div>
+    </form>
+
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>
